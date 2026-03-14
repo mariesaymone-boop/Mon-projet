@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Marie Simone DJIBOUNE</title>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <STyle>
+:root {
+    --primary-color: #2c503a;
+    --secondary-color: #4a8c6d;
+    --light-color: #f8f9fa;
+    --dark-color: #333;
+    --gray-color: #7f8c8d;
+    --border-color: #e0e0e0;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+    background-color: #f5f7fa;
+    padding: 200px;
+    max-width: 1200px;
+    margin:1000 auto;
+}
+
+
+h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--secondary-color);
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+li:before {
+    content: "•";
+    color: var(--secondary-color);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+
+.cv-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: var(--shadow);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+.header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 25px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.header-photo {
+    flex-shrink: 0;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 3px solid white;
+}
+
+.header-info {
+    flex: 1;
+}
+
+.name {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.title {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+}
+
+.contact-item i {
+    color: var(--secondary-color);
+    width: 20px;
+    text-align: center;
+}
+
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.sidebar {
+    background-color: var(--light-color);
+    padding: 25px;
+}
+
+
+.main-content {
+    padding: 25px;
+    flex: 1;
+}
+
+
+.section {
+    margin-bottom: 30px;
+}
+
+
+.experience-item, .education-item, .project-item {
+    margin-bottom: 25px;
+}
+
+.date {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.company, .school {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+}
+
+
+
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.skill {
+    background-color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    border-left: 3px solid var(--secondary-color);
+}
+
+
+.interests-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.interest {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+
+.separator {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 20px 0;
+}
+
+
+
+@media (min-width: 992px) {
+    .main-wrapper {
+        flex-direction: row;
+    }
+    
+    .sidebar {
+        flex: 0 0 35%;
+        min-width: 300px;
+        border-right: 1px solid var(--border-color);
+    }
+    
+    .main-content {
+        flex: 1;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .sidebar, .main-content {
+        padding: 20px;
+    }
+    
+    .header-content {
+        gap: 20px;
+    }
+    
+    .profile-photo {
+        width: 130px;
+        height: 170px;
+    }
+}
+
+
+@media (max-width: 767px) {
+    body {
+        padding: 10px;
+    }
+    
+    .header {
+        padding: 20px 15px;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .profile-photo {
+        width: 120px;
+        height: 160px;
+        margin: 0 auto;
+    }
+    
+    .main-content, .sidebar {
+        padding: 20px 15px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .name {
+        font-size: 1.6rem;
+    }
+    
+    .title {
+        font-size: 1.1rem;
+    }
+    
+    .contact-info {
+        align-items: center;
+    }
+}
+
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+    }
+    
+    .contact-item {
+        font-size: 0.85rem;
+    }
+    
+    .profile-photo {
+        width: 100px;
+        height: 140px;
+    }
+}
+</STyle>
+    <div class="cv-container">
+        
+        <header class="header">
+            <div class="header-content">
+               
+                <div class="header-photo">
+                    <img src="Image.jpeg" alt="" class="profile-photo">
+                </div>
+                
+               
+                <div class="header-info">
+                    <h1 class="name">Marie Simone DJIBOUNE</h1>
+                    <div class="title">Étudiante en Licence 2 GÉOMATIQUE</div>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>784485512</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>mariesaymone@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Thiès None, Thiès</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <span>https://www.linkedin.com/in/marie-simone-djiboune-a489853a6/</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        
+        <div class="main-wrapper">
+           
+            <aside class="sidebar">
+                
+                <section class="section">
+                    <h2>PROFIL</h2>
+                    <p>Étudiante motivée et dynamique en GEOMATIQUE, cherchant à acquérir des connaissances et de l'expérience professionnelle, en étude des sciences géographiques et en informatique.</p>
+                </section>
+
+                <div class="separator"></div>
+
+                
+                <section class="section">
+                    <h2>COMPÉTENCES </h2>
+                    <div class="skills-list">
+                        <div class="skill">Débutante en HTML et en CSS</div>
+                        <div class="skill">Systèmes d'Information Géographique (SIG)</div>
+                        <div class="skill">Cartographie,géoréférencement,mise en page via QGIS</div>
+                        <div class="skill">Analyse de données via RSTUDIO</div>
+                       <div class="skill">Traitement d'images satellite en télédétection par ArcGIS </div>
+                       <div class="skill">Langue</div>
+                       <ul>
+                           <li>Française</li>
+                           <li>Anglais</li>
+                       </ul>
+
+                    </div>
+                   
+                <div class="separator"></div>
+
+               
+                <section class="section">
+                    <h2>CENTRES D'INTÉRÊT</h2>
+                    <div class="interests-list">
+                        <div class="interest">
+                            <i class="focus-musique"></i>
+                            <span>Musique</span>
+                        </div>
+                       
+                        <div class="interest">
+                            <i class="focus-travel"></i>
+                            <span>Voyage</span>
+                           
+                        </div>
+                        <div  class="interest">Basketball</div>
+                        
+                    </div>
+                </section>
+
+                <div class="separator"></div>
+
+                
+            </aside>
+
+            
+            <main class="main-content">
+                
+                <section class="section">
+                    <h2>FORMATION</h2>
+                    <div class="education-item">
+                        <span class="date">2023-2024</span>
+                        <ul>
+                           <li>Baccalauréat Scientifique au Lycée EL Hadji Tafsir DIOUF de BARGNY</li>
+                        </ul>
+                        
+                         <div class="education-item">
+                             <span class="date">2024-2025</span>
+                           
+                        <ul>
+                            <li>Etudiante en 1ère année de licence en GEOMATIQUE à l'université Iba Der THIAM de Thiès</li>
+                        </ul>
+                    <div class="education-item">
+                        <span class="date">2025-2026</span>
+                       <ul>
+                           <li>Etudiante en 2ème année de licence en GEOMATIQUE à l'université Iba Der THIAM de Thiès</li>
+                       </ul>
+
+                   
+                    </div>
+                                        
+                </section>
+
+                
+                <section class="section">
+                    <h2>EXPÉRIENCES </h2>
+                    
+                    <div class="experience-item">
+                        
+                        <span class="company">Activité d'analyse de données </span>
+                       
+                        
+                        <ul>
+                            <li>Analyse d'une base de données</li>
+                            <li>Traitemant de données géospatiales dans RStudio </li>
+                            <li>Interprétation des résultats</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="experience-item">
+                        
+                        <span class="company">Production de carte</span>
+                       
+                        <ul>
+                            <li>Collecte de données géospatiales</li>
+                            <li> Création de cartes thématiques pour l'analyse spatiale par QGIS</li>
+                            <li>La mise en page de cartes thématiques</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+                <section class="section">
+                    <h2>PROJETS </h2>
+                    
+                    <div class="project-item">
+                       <span class="company"> Projet sur le trafic routier au niveau des rond-points de Thiès</span>
+                       
+                     <p>Cette étude s’inscrit dans le cadre d’un travail de terrain réalisé dans le cadre du cours de méthodes de collecte de données, 
+                         avec pour objectif de mettre en pratique les outils de collecte et d’analyse appliqués à la géomatique. 
+                         Elle vise à mieux comprendre le fonctionnement du réseau routier urbain et à produire une représentation 
+                         cartographique du trafic aux principales intersections de la ville.</p>
+                       
+                    </div>
+                    
+                    <div class="project-item">
+                        <span class="company">Projet d' Analyse de données</span>
+                       
+                       <p>Des capteurs ont été placés dans plusieurs localités de Thiès (urbain / périurbain / rural) pour
+                        suivre : PM2.5, NO₂, bruit, température, humidité, pluie, vent, NDVI (végétation),
+                        qualité de l’air,gêne du bruit,brûlage de déchets (oui/non).À travers des études(boxplot,matrice de corrélation,histogramme,tests...),
+                        ce projet a permis de connaitre le niveau de corrélation et d'association entre 2 variables.
+                        Et a permi également de connaitre exactement quelles sont les causes de certains phénomènes spatiaux contatés 
+                        dans ces localités et d'interpréter les résultats. 
+                        </p>
+                    </div>
+                    
+                   
+                </section>
+            </main>
+        </div>
+
+        
+</body>
+</html>

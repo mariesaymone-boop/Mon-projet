@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartes du Sénégal - Tambacounda et densités</title>
+    <style>
+        /* Styles identiques à votre fichier d'origine, conservés */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        .image-container {
+            width: 100%;
+            height: 200px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s;
+        }
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+        .description {
+            padding: 15px;
+            background: white;
+            flex-grow: 1;
+        }
+        .description h3 {
+            margin: 0 0 8px 0;
+            color: #1e3c72;
+            font-size: 1.2rem;
+        }
+        .description p {
+            margin: 0 0 10px 0;
+            color: #555;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        .badge {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            background-color: #ecf0f1;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: background-color 0.2s;
+            color: #2c3e50;
+            border: 1px solid #bdc3c7;
+        }
+        .btn:hover {
+            background-color: #d0d7db;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+            border-color: #2980b9;
+        }
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        .download-select {
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid #bdc3c7;
+            background-color: white;
+            font-size: 0.85rem;
+        }
+        .error-message {
+            grid-column: 1 / -1;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            overflow: auto;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .close:hover {
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>🗺️ Cartes thématiques du Sénégal</h1>
+    
+    <div class="grid" id="carteGrid"></div>
+
+    <!-- Modale pour le zoom -->
+    <div id="zoomModal" class="modal">
+        <span class="close" id="closeModal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <footer>
+        Données : agdm.org, ANSD — Réalisations : Marie Simone DJIBOUNE, Dib MARONE — Juillet 2025
+    </footer>
+
+    <script>
+        // Définition des images et de leurs descriptions (basées sur les métadonnées fournies)
+        const images = [
+            {
+                file: 'tamba.png',
+                title: 'Eaux tempérées et routes nationales de Tambacounda',
+                description: 'Carte réalisée par Marie Simone DJIBOUNE (Juillet 2025). Source : agdm.org. Datum : WGS 84, Projection : UTM zone 28 Nord. Légende : zones d\'eau et routes nationales.'
+            },
+            {
+                file: 'Densite.jpeg',
+                title: 'Densité de population par région (carte 1)',
+                description: 'Données ANSD. Réalisateur : Dib MARONE. Régions représentées : Saint-Louis, Louga, Matam, Dakar, Kaffrine, Fatick, Tambacounda, Kaolack, Ziguinchor, Sédhiou, Kolda, Kédougou. Valeurs de population (150000, 250000, 500000, 750000).'
+            },
+            {
+                file: 'Densite1.jpeg',
+                title: 'Densité de population par région (carte 2)',
+                description: 'Données ANSD. Réalisateur : Dib MARONE. Régions : Saint-Louis, Louga, Matam, Dakar, Kaffrine, Tambacounda, Kaolack, Ziguinchor, Kolda, Sédhiou. Échelle de population (250000, 500000).'
+            },
+            
+            {
+                file: 'niakhar3.png',
+                title: 'Densité de population par région (carte 2)',
+                description: 'Données ANSD. Réalisateur : Dib MARONE. Régions : Saint-Louis, Louga, Matam, Dakar, Kaffrine, Tambacounda, Kaolack, Ziguinchor, Kolda, Sédhiou. Échelle de population (250000, 500000).'
+            }   
+            
+        ];
+
+        const grid = document.getElementById('carteGrid');
+        const modal = document.getElementById('zoomModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+
+        // Fermeture de la modale
+        closeModal.onclick = function() { modal.style.display = "none"; }
+        window.onclick = function(event) { if (event.target == modal) modal.style.display = "none"; }
+
+        // Fonction de téléchargement (identique à l'originale)
+        function downloadImage(imgElement, format) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = imgElement.naturalWidth;
+            canvas.height = imgElement.naturalHeight;
+
+            if (format === 'jpg' || format === 'jpeg') {
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+            ctx.drawImage(imgElement, 0, 0);
+
+            let mimeType, extension;
+            if (format === 'png') {
+                mimeType = 'image/png';
+                extension = 'png';
+            } else if (format === 'jpg' || format === 'jpeg') {
+                mimeType = 'image/jpeg';
+                extension = 'jpg';
+            } else {
+                alert('Format non supporté');
+                return;
+            }
+
+            canvas.toBlob((blob) => {
+                if (blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `carte_${Date.now()}.${extension}`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                } else {
+                    alert('Erreur lors de la génération de l\'image');
+                }
+            }, mimeType);
+        }
+
+        // Vérifier que la première image existe (simple test)
+        const testImg = new Image();
+        testImg.onload = function() {
+            // Toutes les images sont supposées présentes ; on génère les cartes
+            images.forEach((imgData, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'image-container';
+
+                const img = document.createElement('img');
+                img.src = imgData.file;
+                img.alt = imgData.title;
+                img.loading = 'lazy';
+
+                // Zoom au clic sur l'image
+                img.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                });
+
+                imgContainer.appendChild(img);
+
+                // Description
+                const descDiv = document.createElement('div');
+                descDiv.className = 'description';
+                descDiv.innerHTML = `
+                    <span class="badge">Carte ${index+1}/${images.length}</span>
+                    <h3>${imgData.title}</h3>
+                    <p>${imgData.description}</p>
+                `;
+
+                // Barre d'outils
+                const toolbar = document.createElement('div');
+                toolbar.className = 'toolbar';
+
+                // Bouton Zoom
+                const zoomBtn = document.createElement('button');
+                zoomBtn.className = 'btn';
+                zoomBtn.innerHTML = '🔍 Zoom';
+                zoomBtn.addEventListener('click', function() {
+                    modal.style.display = "block";
+                    modalImg.src = img.src;
+                });
+
+                // Sélecteur de format
+                const formatSelect = document.createElement('select');
+                formatSelect.className = 'download-select';
+                formatSelect.innerHTML = `
+                    <option value="png">PNG</option>
+                    <option value="jpg">JPG</option>
+                `;
+
+                // Bouton Télécharger
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'btn btn-primary';
+                downloadBtn.innerHTML = '⬇ Télécharger';
+                downloadBtn.addEventListener('click', function() {
+                    const format = formatSelect.value;
+                    if (img.complete && img.naturalHeight > 0) {
+                        downloadImage(img, format);
+                    } else {
+                        alert("L'image n'est pas encore complètement chargée, veuillez réessayer.");
+                    }
+                });
+
+                toolbar.appendChild(zoomBtn);
+                toolbar.appendChild(formatSelect);
+                toolbar.appendChild(downloadBtn);
+                descDiv.appendChild(toolbar);
+
+                card.appendChild(imgContainer);
+                card.appendChild(descDiv);
+                grid.appendChild(card);
+            });
+        };
+
+        testImg.onerror = function() {
+            // Si la première image est introuvable, on affiche un message d'erreur
+            grid.innerHTML = `
+                <div class="error-message">
+                    ⚠️ Les images (tamba.png, Densite.jpeg, Densite1.jpeg) sont introuvables.<br>
+                    Veuillez placer ces fichiers dans le même dossier que cette page HTML.
+                </div>
+            `;
+        };
+
+        // Lancer le test avec la première image
+        testImg.src = images[0].file;
+    </script>
+</body>
+</html>

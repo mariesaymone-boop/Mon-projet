@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio | Géomatique</title>
+    <!-- Feuille de style -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-globe"></i> Mon Portfolio
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#skills">Compétences</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" aria-label="Changer de thème">
+                <i class="fas fa-sun"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Section Accueil -->
+        <section id="home" class="section home">
+            <div class="home-content">
+                <div class="home-text">
+                    <h1>Bonjour, je suis <span class="highlight">Marie Simone DJIBOUNE</span></h1>
+                    <p class="title">Développeuse web junior & Étudiante en Géomatique</p>
+                    <p class="bio">
+                        Passionnée par la cartographie interactive et le développement web, 
+                        je combine mes compétences en géomatique avec le code pour créer des 
+                        applications utiles et esthétiques.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/marie-simone-djiboune-a489853a6/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        
+                    </div>
+                </div>
+                <div class="home-image">
+                    <img src="Image.jpeg" alt="Photo de profil">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Projets -->
+        <section id="projects" class="section projects">
+            <h2>Mes projets</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="app">Application</button>
+            </div>
+            <div class="projects-grid" id="projects-grid">
+                <!-- injecté par JavaScript -->
+            </div>
+        </section>
+
+        <!-- Section Compétences -->
+        <section id="skills" class="section skills">
+            <h2>Compétences techniques</h2>
+            <div class="skills-container" id="skills-container">
+                <!-- injecté par JavaScript -->
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section id="contact" class="section contact">
+            <h2>Contactez-moi</h2>
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name">Nom <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="Votre nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="exemple@domaine.fr" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message <span class="required">*</span></label>
+                    <textarea id="message" name="message" rows="5" placeholder="Votre message..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Envoyer le message</button>
+                <div id="form-message" class="form-message"></div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Marie Simone DJIBOUNE. Tous droits réservés.</p>
+        <p>Réalisé avec ❤️ en HTML/CSS/JS</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
